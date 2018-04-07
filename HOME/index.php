@@ -70,19 +70,18 @@
           <!-- Inicio Fila 1-->
             <div class="row">
                 <div class="col">
-                  <a href="E1/index.php">
+                 
                         <div class="card  bg-dark text-white">
                               <div class="card-body">
                                   Ejercicio 1
-                                <img src="Manzana-Logo.svg" class="img-thumbnail" alt="Cinque Terre">
+                                <img src="01.PNG" class="img-thumbnail" alt="Cinque Terre">
                                 <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                  Ordena Los numeros de 1 hasta el 100, haciendo click en el orden correcto.
+                                  Obten puntos por cada numero acertado.
                                 </p>
-                                <center><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></center>
+                                <center> <a href="E1/index.php"><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></a></center>
                               </div>
                         </div>
-                    </a>
                 </div>
                 <div class="col">
                   <div class="card bg-dark text-white">
@@ -90,8 +89,8 @@
                               Ejercicio 2
                             <img src="Manzana-Logo.svg" class="img-thumbnail" alt="Cinque Terre">
                             <p>
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                              Selecciona el resultado de la operacion indicada, operaciones desde sencillas
+                              hasta un poco mas compleja obten puntos por cada resultado correcto.
                             </p>
                             <center><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></center>
                           </div>
