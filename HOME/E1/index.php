@@ -69,33 +69,49 @@
 			    </div>
 				<script type="text/javascript">
 					/////////////////////////////////////////////////////////////////
-					///Aqui se crea Obtiene la base del tablero
+					///Se declaran las variables globales
 					var Tablero = document.getElementById("Tablero");
 					var cont = 0, cont3 = 0;
 					var Barra = document.getElementById("Avanze");
 					var Ganaste = document.createElement('div');
 					var Mensaje = document.createElement('h1');
+					var arrayFila = [];
+					var listaB = [];
+					var Gano = false;
 					/////////////////////////////////////////////////////////////////
 					///Se dibujan los botones
-					var numeros = [1,2,3,4,5,6,7,8,9,10,11,12];//Array 
-					numero = shuffle(numeros);
-					for(var i = 0; i < 4; i++)
-					{
-						var Fila = document.createElement("div");
-						Fila.className += "row justify-content-center";
-						for(var j = 0; j < 3; j++)
-						{
-							var Boton = document.createElement("div");
-							Boton.className += "col-md-2 btn btn-dark animated pulse infinite";
-							  
-							Boton.id = "btn"+cont;
-							Boton.innerHTML = numeros[cont];
-							Boton.addEventListener('click',EmpiezaJuego,false);
-							Fila.appendChild(Boton);
-							cont += 1;		
-						}
-						Tablero.appendChild(Fila);	
-					}
+					function CrearTablero()
+					{///Inicia Funcion Crear Tablero
+						var numeros = [1,2,3,4,5,6,7,8,9,10,11,12];//Array 
+						numero = shuffle(numeros);//Se desordenan los numeros
+						///Se dibuja el tablero por medio de dos ciclos
+						for(var i = 0; i < 4; i++)
+						{//Inicia ciclo de Fila
+							var Fila = document.createElement("div");
+							Fila.className += "row justify-content-center";
+							Fila.id = "fila"+i;
+							arrayFila.push(Fila.id);
+							for(var j = 0; j < 3; j++)
+							{//Inicia ciclo de columnas
+
+								var Boton = document.createElement("div");
+								Boton.className += "col-md-2 btn btn-dark animated pulse infinite";
+								Boton.id = "btn"+cont;
+								listaB.push(Boton.id);
+								Boton.innerHTML = numeros[cont];
+								Boton.addEventListener('click',EmpiezaJuego,false);
+								Fila.appendChild(Boton);
+								cont += 1;		
+
+							}//Termina el ciclo de la columna
+							Tablero.appendChild(Fila);	//Se añade la fila al tablero
+
+						}///Termina ciclo de fila	
+						cont = 0;
+
+					}///Termina Funcion Crear Tablero
+
+					CrearTablero();
 					var arrayBotones = [];
 
 					/////////////////////////////////////////////////////////////////////////////
@@ -139,13 +155,8 @@
 							if(Ord[cont3] != Obje.innerHTML)
 							{
 								alert("Diferente !!!");
-								for(var i = 0; i < arrayBotones.length; i++)
-								{
-									var Obje= document.getElementById(arrayBotones[i]);
-									Obje.className = "col-md-2 btn btn-dark animated pulse infinite";
-								}
-								arrayBotones = [];
-								cont3 = 0;
+								/////Aqui va el metodo Reset
+								Reset();
 							}
 							else
 							{
@@ -162,11 +173,19 @@
 										Barra.style = "width:"+90+"%;";
 										break;
 									case 12:
+										for(var i = 0; i<arrayFila.length; i++)
+										{
+											Tablero.removeChild(document.getElementById(arrayFila[i]));
+										}
+										arrayFila =[];
+										listaB = [];
+										arrayBotones = [];
 										Barra.style = "width:"+100+"%;";
-										Mensaje.innerHTML = "Felicidades Ganaste!!!!";
+										Mensaje.innerHTML = "Felicidades Lo lograste!!!!";
 										Mensaje.className = "animated shake infinite";
 										Ganaste.appendChild(Mensaje);
 										Tablero.appendChild(Ganaste); 
+										Gano = true;
 										break;
 								}	
 							}
@@ -174,18 +193,25 @@
 							
 					}//Termina Funcion VerOrden
 					function Reset()
-					{
-								for(var i = 0; i < arrayBotones.length; i++)
-								{
-									var Obje= document.getElementById(arrayBotones[i]);
-									Obje.className = "col-md-2 btn btn-dark animated pulse infinite";
-									Obje.addEventListener('click',EmpiezaJuego,false);
-								}
-								arrayBotones = [];
-								Barra.style = "width:"+0+"%;";
+					{///Inicia funcion reset
+							var C = 0;
+							for(var i = 0; i<arrayFila.length; i++)
+							{
+								Tablero.removeChild(document.getElementById(arrayFila[i]));
+							}
+							arrayFila =[];
+							listaB = [];
+							arrayBotones = [];
+							Barra.style = "width:"+0+"%;";
+							if(Gano == true)
+							{
 								Tablero.removeChild(Ganaste);
-								cont3 = 0;
-					}
+								Gano = false;
+							}
+							
+							CrearTablero();
+							cont3 = 0;
+					}//Termina funcion Reset
 				</script>
 			    <!-- Bootstrap core JavaScript -->
     			<script src="vendor/jquery/jquery.min.js"></script>
