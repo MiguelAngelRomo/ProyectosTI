@@ -70,7 +70,7 @@
           <!-- Inicio Fila 1-->
             <div class="row">
                 <div class="col">
-                  <a href="E1/index.php">
+                 
                         <div class="card  bg-dark text-white">
                               <div class="card-body">
                                   Ejercicio 1
@@ -79,10 +79,9 @@
                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                                 </p>
-                                <center><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></center>
+                                <center> <a href="E1/index.php"><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></a></center>
                               </div>
                         </div>
-                    </a>
                 </div>
                 <div class="col">
                   <div class="card bg-dark text-white">
