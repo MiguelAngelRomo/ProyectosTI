@@ -56,7 +56,21 @@
 			    	<div class="">
 			    		<h5 class="animated zoomIn">Instrucciones: </h5>
 			    		<p>Ordena los numeros del 1 al 12 haciendo click en el orden correcto.</p>
-			    	</div>
+			    		<div class="row border border-primary">
+			    			<div class ="col-sm-1">
+			    					tiempo:  
+			    			</div>
+			    			<div class ="col-sm-1" id = "minutos">
+			    					0
+			    			</div>
+			    			<div class ="col-sm-1">
+			    				:
+			    			</div>
+			    			<div class ="col-sm-1" id = "segundos">
+			    					0
+			    			</div>
+			    		</div>
+
 			    	<div id="Tablero" class="justify-content-center">
 			    		
 			    	</div>
@@ -78,6 +92,42 @@
 					var arrayFila = [];
 					var listaB = [];
 					var Gano = false;
+					////////////////////////////////////////////////////////////
+					var Cronometro;
+					/////////////////////////////////////////////////////////////
+					/////Cronometro
+					function EmpezarTiempo()
+					{//Empieza funcion Empezar Tiempo
+						var contador_s = 0;
+						var contador_m = 0;
+
+						var m = document.getElementById("minutos");
+						var s = document.getElementById("segundos");
+
+						Cronometro = setInterval(
+							function()
+							{
+								if(contador_s == 60)
+								{
+									contador_s = 0;
+									contador_m++;
+									m.innerHTML = contador_m;
+
+									if(contador_m == 60)
+									{
+										contador_m = 0;
+									}
+								}
+								s.innerHTML = contador_s;
+								contador_s++;
+							}
+						,1000);
+					}//Termina funcion Empezar Tiempo
+					function DetenerTiempo()
+					{//Empieza Funcion DetenerTiempo
+							clearInterval(Cronometro);
+					}//Termina Funcion Detener Tiempo
+
 					/////////////////////////////////////////////////////////////////
 					///Se dibujan los botones
 					function CrearTablero()
@@ -108,7 +158,7 @@
 
 						}///Termina ciclo de fila	
 						cont = 0;
-
+						EmpezarTiempo();
 					}///Termina Funcion Crear Tablero
 
 					CrearTablero();
@@ -186,6 +236,7 @@
 										Ganaste.appendChild(Mensaje);
 										Tablero.appendChild(Ganaste); 
 										Gano = true;
+										DetenerTiempo();
 										break;
 								}	
 							}
@@ -208,7 +259,7 @@
 								Tablero.removeChild(Ganaste);
 								Gano = false;
 							}
-							
+							DetenerTiempo();
 							CrearTablero();
 							cont3 = 0;
 					}//Termina funcion Reset
