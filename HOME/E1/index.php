@@ -58,16 +58,19 @@
 			    		<p>Ordena los numeros del 1 al 12 haciendo click en el orden correcto.</p>
 			    		<div class="row border border-primary">
 			    			<div class ="col-sm-1">
-			    					tiempo:  
+			    				tiempo:  
 			    			</div>
 			    			<div class ="col-sm-1" id = "minutos">
-			    					0
-			    			</div>
-			    			<div class ="col-sm-1">
-			    				:
+			    				0 :
 			    			</div>
 			    			<div class ="col-sm-1" id = "segundos">
-			    					0
+			    				0
+			    			</div>
+			    			<div class ="col-sm-1" >
+			    				Puntos:
+			    			</div>
+			    			<div class="col-sm-1" id="puntos">
+			    				0
 			    			</div>
 			    		</div>
 
@@ -91,6 +94,7 @@
 					var Mensaje = document.createElement('h1');
 					var arrayFila = [];
 					var listaB = [];
+					var Puntos = 0; 
 					var Gano = false;
 					////////////////////////////////////////////////////////////
 					var Cronometro;
@@ -111,7 +115,7 @@
 								{
 									contador_s = 0;
 									contador_m++;
-									m.innerHTML = contador_m;
+									m.innerHTML = contador_m + " : ";
 
 									if(contador_m == 60)
 									{
@@ -211,6 +215,10 @@
 							else
 							{
 								cont3 += 1;
+								Puntos += 8.4;
+								var Puntos2 = Math.round(Puntos);
+								var EP = document.getElementById("puntos");
+								EP.innerHTML = Puntos2 - 1;
 								switch(cont3)
 								{
 									case 3:
@@ -260,6 +268,9 @@
 								Gano = false;
 							}
 							DetenerTiempo();
+							var EP = document.getElementById("puntos");
+							Puntos = 0;
+							EP.innerHTML = Puntos;
 							CrearTablero();
 							cont3 = 0;
 					}//Termina funcion Reset
