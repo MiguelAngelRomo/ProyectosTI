@@ -63,12 +63,18 @@
 			    	<div class="btn btn-primary" id = "Reset" onclick="Reset()">
 			    		Reset
 			    	</div>
+			    	<div class="progress">
+        				<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:0%" id="Avanze"></div>  
+      				</div>
 			    </div>
 				<script type="text/javascript">
 					/////////////////////////////////////////////////////////////////
 					///Aqui se crea Obtiene la base del tablero
 					var Tablero = document.getElementById("Tablero");
 					var cont = 0, cont3 = 0;
+					var Barra = document.getElementById("Avanze");
+					var Ganaste = document.createElement('div');
+					var Mensaje = document.createElement('h1');
 					/////////////////////////////////////////////////////////////////
 					///Se dibujan los botones
 					var numeros = [1,2,3,4,5,6,7,8,9,10,11,12];//Array 
@@ -116,76 +122,20 @@
 					function EmpiezaJuego(e)
 					{
 						//alert(e.target.id);
-						e.target.className = "col-md-2 btn btn-primary animated rollIn";
-						e.target.addEventListener('click',EmpiezaJuego,false);
+						e.target.className = "btn btn-primary animated fadeOut";
+						e.target.removeEventListener('click',EmpiezaJuego,false);
 						arrayBotones.push(e.target.id);
-						ComprobarP();
 						VerOrden();
 					}
 					///////////////////////////////////////////////////////////////////////////////////
-					//Comprobar Pulsados
-					function ComprobarP()
-					{//Aqui inicia la funcion ComprobarP
-
-						////////////////////////////////////////////////////////
-						//Ciclo que comprueba que boton a sido pulsado mas de dos veces
-						for(var i = 0; i < arrayBotones.length; i++)
-						{
-									var cont2 = 0;
-									///////////////////////////////////////////////////
-									////Ciclo que cuenta las veces que sea pulsado un boton
-									for(var j = 0; j < arrayBotones.length;j++)
-									{
-										if(arrayBotones[i] == arrayBotones[j])
-										{
-											cont2 += 1;
-										}
-									}
-									//////////////////////////////////////////////////////////
-									//Condicion que identifica el boton pulsado mas de dos veces
-									if(cont2 > 1)
-									{
-										cont3 -= 1;
-										//Variable temporal que obtiene el boton pulsado
-										var tmp = document.getElementById(arrayBotones[i]);
-										//Cambiamos las clases de ese boton a devolverlo a su estad normal
-										tmp.className = "col-md-2 btn btn-dark animated pulse infinite";
-										//Variable que almacena el id del boton pulsado
-										var Objetivo = arrayBotones[i];
-										//Array temporal que nos ayudara a limpiar nuestro arreglo de botones pulsados
-										var temp = [];
-										///Ciclo que busca las repeticiones de ese boton y las elimina
-										for(var k = 0; k < arrayBotones.length; k++)
-										{
-											if(Objetivo == arrayBotones[k])
-											{
-												arrayBotones[k] = "";
-											}
-										}
-										///Ciclo que pasa el array sin las repeticiones al temporal
-										for(var k = 0; k < arrayBotones.length; k++)
-										{
-											if(arrayBotones[k] != "")
-											{
-												temp.push(arrayBotones[k]);
-											}
-										}
-										//Se vacia el array original
-										arrayBotones = [];
-										//Se copia el array temporal al original sin los espacios vacios y sin repeticiones
-										for(var k = 0; k < temp.length; k++)
-										{
-											arrayBotones.push(temp[k]);
-										}
-									}
-						}//Se acaba ciclo
-					}////Aqui acaba la funcion Comprobar P
-
+					//Comprobar Orden
 					function VerOrden()
 					{//Inicia Funcion VerOrden
 						var Ord = [1,2,3,4,5,6,7,8,9,10,11,12];//Array Orden correcto de pulsacion de botones
 						//Obtenemos el objeto por medio de su id
 						var Obje= document.getElementById(arrayBotones[arrayBotones.length-1]);
+						if(cont3 < Ord.length)
+						{
 							if(Ord[cont3] != Obje.innerHTML)
 							{
 								alert("Diferente !!!");
@@ -200,7 +150,28 @@
 							else
 							{
 								cont3 += 1;
+								switch(cont3)
+								{
+									case 3:
+										Barra.style = "width:"+30+"%;";
+										break;
+									case 6:
+										Barra.style = "width:"+60+"%;";
+										break;
+									case 9:
+										Barra.style = "width:"+90+"%;";
+										break;
+									case 12:
+										Barra.style = "width:"+100+"%;";
+										Mensaje.innerHTML = "Felicidades Ganaste!!!!";
+										Mensaje.className = "animated shake infinite";
+										Ganaste.appendChild(Mensaje);
+										Tablero.appendChild(Ganaste); 
+										break;
+								}	
 							}
+						}
+							
 					}//Termina Funcion VerOrden
 					function Reset()
 					{
@@ -208,8 +179,11 @@
 								{
 									var Obje= document.getElementById(arrayBotones[i]);
 									Obje.className = "col-md-2 btn btn-dark animated pulse infinite";
+									Obje.addEventListener('click',EmpiezaJuego,false);
 								}
 								arrayBotones = [];
+								Barra.style = "width:"+0+"%;";
+								Tablero.removeChild(Ganaste);
 								cont3 = 0;
 					}
 				</script>
