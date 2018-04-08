@@ -60,11 +60,8 @@
 			    			<div class ="col-sm-1">
 			    				tiempo:  
 			    			</div>
-			    			<div class ="col-sm-1" id = "minutos">
-			    				0 :
-			    			</div>
-			    			<div class ="col-sm-1" id = "segundos">
-			    				0
+			    			<div class ="col-sm-2" id = "tiempo">
+			    				0 : 0
 			    			</div>
 			    			<div class ="col-sm-1" >
 			    				Puntos:
@@ -84,6 +81,32 @@
         				<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width:0%" id="Avanze"></div>  
       				</div>
 			    </div>
+			    <!-- Empieza Modal -->
+				<div class="modal fade" id="myModal">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+
+				      <!-- Modal Header -->
+				      <div class="modal-header bg-info">
+				        <h4 class="modal-title">Ganaste!!</h4>
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				      </div>
+
+				      <!-- Modal body -->
+				      <div class="modal-body justify-content-center">
+				        <h3 class="animated shake infinite">Felicidades Lo Has Logrado!!!!</h3>
+				       <center> <img src="Confeti.gif"></center>
+				      </div>
+
+				      <!-- Modal footer -->
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				      </div>
+
+				    </div>
+				  </div>
+				</div>
+				<!--Termina Modal -->
 				<script type="text/javascript">
 					/////////////////////////////////////////////////////////////////
 					///Se declaran las variables globales
@@ -105,8 +128,8 @@
 						var contador_s = 0;
 						var contador_m = 0;
 
-						var m = document.getElementById("minutos");
-						var s = document.getElementById("segundos");
+						var t = document.getElementById("tiempo");
+						
 
 						Cronometro = setInterval(
 							function()
@@ -115,14 +138,14 @@
 								{
 									contador_s = 0;
 									contador_m++;
-									m.innerHTML = contador_m + " : ";
+									t.innerHTML = contador_m + " : "+contador_s;
 
 									if(contador_m == 60)
 									{
 										contador_m = 0;
 									}
 								}
-								s.innerHTML = contador_s;
+								t.innerHTML = contador_m + " : "+contador_s;
 								contador_s++;
 							}
 						,1000);
@@ -239,8 +262,7 @@
 										listaB = [];
 										arrayBotones = [];
 										Barra.style = "width:"+100+"%;";
-										Mensaje.innerHTML = "Felicidades Lo lograste!!!!";
-										Mensaje.className = "animated shake infinite";
+										$("#myModal").modal();
 										Ganaste.appendChild(Mensaje);
 										Tablero.appendChild(Ganaste); 
 										Gano = true;
@@ -262,11 +284,6 @@
 							listaB = [];
 							arrayBotones = [];
 							Barra.style = "width:"+0+"%;";
-							if(Gano == true)
-							{
-								Tablero.removeChild(Ganaste);
-								Gano = false;
-							}
 							DetenerTiempo();
 							var EP = document.getElementById("puntos");
 							Puntos = 0;

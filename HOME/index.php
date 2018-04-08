@@ -92,7 +92,7 @@
                               Selecciona el resultado de la operacion indicada, operaciones desde sencillas
                               hasta un poco mas compleja obten puntos por cada resultado correcto.
                             </p>
-                            <center><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></center>
+                            <center><a href="E2/index.php"><input type="button" name="" class="btn btn-danger" value="Ir a Ejercicio"></a></center>
                           </div>
                     </div>
                 </div>
