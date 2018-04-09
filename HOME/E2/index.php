@@ -55,7 +55,7 @@
 			    	</div>
 			    	<div class="">
 			    		<h5 class="animated zoomIn">Instrucciones: </h5>
-			    		<p>Resuelve la Operacion Indicada.</p>
+			    		<p>Selecciona el numero que son el resultado de la operacion y suma puntos por cada operacion respondida.<p id="operacion" class="border border-dark w-25 text-center">A + B = 0</p></p>
 			    		<div class="row border border-primary">
 			    			<div class ="col-sm-1">
 			    				tiempo:  
