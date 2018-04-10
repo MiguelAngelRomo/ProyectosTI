@@ -124,9 +124,12 @@
 					var Cronometro;
 					var P;
 					var arrayBotones = [];
+					var arrayFila = [];
+					var cont = 0;
 					//////Termina Variables Globales
 					/////////////////////////////////////////////////////////////////////////////
 					EmpezarTiempo();
+					CrearTablero();
 					////////////////////////////////////////////////////////////////////////////
 					///Funciones De Preparacion del Juego
 					function EmpezarTiempo()
@@ -153,24 +156,101 @@
 							}
 						,1000);
 					}//Termina Funcion EmpezarTiempo
+					/////////////////////////////////////////////////////////////////////////////
+					//////Se barajea el Array para que esten en los botones de forma desordenada
+					function shuffle(array) 
+					{
+  							var currentIndex = array.length, temporaryValue, randomIndex;
+ 							// Mientras queden elementos a mezclar...
+  							while (0 !== currentIndex) 
+  							{
+    								// Seleccionar un elemento sin mezclar...
+    								randomIndex = Math.floor(Math.random() * currentIndex);
+    								currentIndex -= 1;
+    								// E intercambiarlo con el elemento actual
+    								temporaryValue = array[currentIndex];
+    								array[currentIndex] = array[randomIndex];
+    								array[randomIndex] = temporaryValue;
+  							}
+
+  					return array;
+					}
+
 					function DetenerTiempo()
 					{//Empieza Funcion DetenerTiempo
 						clearInterval(Cronometro);
 					}//Termina Funcion DetenerTiempo
 					function CrearOperacion()
 					{//Empieza Funcion CrearOperacion
-
+						var Operacion = document.getElementById("operacion");
+						var N1 = Math.floor((Math.random() * 10) + 1);
+						var N2 = Math.floor((Math.random() * 10) + 1);
+						var Op = Math.floor((Math.random() * 2) + 1);
+						var Resultado;
+						if(Op == 1)
+						{
+							Operacion.innerHTML = N1+" + "+N2+" = ?";
+							Resultado = N1+N2;
+						}
+						else
+						{
+							Operacion.innerHTML = N1+" - "+N2+" = ?";
+							Resultado = N1-N2;
+						}
+						return Resultado;
 					}//Termina Funcion CrearOperacion
 
 					function CrearTablero()
 					{//Empieza Funcion CrearTablero
+						var num = CrearOperacion();
+					//	var alea = Math.floor((Math.random() * 4) + 1);
+						var Numeros = [];
+						for(var i = 0; i < 3; i++)
+						{
+							Numeros.push(num);
+						}
+						for(var i = 0; i < 9; i++)
+						{
+							var S = Math.floor((Math.random() * 20) + 1);
+							Numeros.push(S);
+							console.log(S);
+						}
+						Numeros = shuffle(Numeros);
+							for(var i = 0; i < 4; i++)
+							{//Inicia ciclo de Fila
+								var Fila = document.createElement("div");
+								Fila.className += "row justify-content-center";
+								Fila.id = "fila"+i;
+								arrayFila.push(Fila.id);
+								for(var j = 0; j < 3; j++)
+								{//Inicia ciclo de columnas
 
+									var Boton = document.createElement("div");
+									Boton.className += "col-md-2 btn btn-dark animated pulse infinite";
+									Boton.id = "btn"+cont;
+									Boton.innerHTML = Numeros[cont];
+									//Boton.addEventListener('click',EmpiezaJuego,false);
+									Fila.appendChild(Boton);
+									cont += 1;		
+
+								}//Termina el ciclo de la columna
+								Tablero.appendChild(Fila);	//Se añade la fila al tablero
+
+						}///Termina ciclo de fila	
+						cont = 0;
 					}//Termina Funcion CrearTablero
 
 					function Reset(e)
 					{//Empieza Funcion Reset
 						//$("#myModal").modal();
-					
+						DetenerTiempo();
+						EmpezarTiempo();
+						for(var i = 0; i<arrayFila.length; i++)
+						{
+								Tablero.removeChild(document.getElementById(arrayFila[i]));
+						}
+						arrayFila = [];
+						CrearTablero();
 					}//Termina funcion Reset
 
 					function Btn_Click(e)
